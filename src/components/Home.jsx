@@ -8,11 +8,11 @@ const home = () => {
   const auth = useSelector(state => state.auth)
   if(auth.isAuthenticated){
     return (
-      <div className='flex h-[calc(100vh-52px)]'>
-        <div className='border-1 border-amber-50 flex flex-col w-1/6 min-w-[200px] h-full'>
+      <div className='flex  flex-col-reverse sm:flex-row h-[calc(100vh-52px)]'>
+        <div className='  border-white  flex flex-row sm:flex-col w-full sm:w-1/6 sm:min-w-[200px] h-16 sm:h-full  fixed bottom-0 sm:static  z-10'>
           <Sidebar/> 
         </div>
-        <div className='flex-1 overflow-y-auto scrollbar-hide'>
+        <div className='flex-1 overflow-y-auto scrollbar-hide pb-16 sm:pb-0'>
           <Outlet/>
         </div>
       </div>

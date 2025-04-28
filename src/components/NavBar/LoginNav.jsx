@@ -15,10 +15,7 @@ const LoginNav = () => {
     return (
         <div className='flex px-10 justify-between  items-center w-screen border-1 border-amber-50'>
             <img src={logo} alt="Logo" width={50}/>
-            <input type="text" placeholder='Search'
-            className='text-white border w-80 p-1'>
-                
-            </input>
+
             <div className='flex gap-1 items-center'>
                 <span className='text-white'>{userName}</span>
                 <img src={profileImg} width={30} height={20} alt="Profile" 

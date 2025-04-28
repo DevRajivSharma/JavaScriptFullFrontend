@@ -31,7 +31,7 @@ function App() {
   })
   return (
     <>
-      <div className={'bg-[#222]  w-screen h-screen flex flex-col'}>
+      <div className={'bg-[#0f0f0f]  w-screen h-screen flex flex-col'}>
         {loaded && <div className='w-screen h-screen flex justify-center items-center'>
           <div className='w-10 h-10 border-4 border-violet-500 rounded-full animate-spin'></div>  
         </div>}
