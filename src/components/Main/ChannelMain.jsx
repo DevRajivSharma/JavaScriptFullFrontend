@@ -13,12 +13,13 @@ const ChannelMain = () => {
   const [playlist,setPlaylist] = useState([])
   const [isloading, setIsloading] = useState(true)
   const [currentOpened, setCurrentOpened] = useState(1)
-  const [currentFilter, setCurrentFilter] = useState('Latest')
-  const openFilterCss = 'bg-white text-sm  px-3 py-1 rounded-[8px] text-black font-semibold'
-  const closeFilterCss = 'bg-[#272727] text-sm hover:bg-[#3a3838] px-3 py-1 font-semibold rounded-[8px] text-md'
-  const openTabCss = 'text-lg  p-2 text-white font-bold border-b-2 border-white'
-  const closeTabCss = 'text-lg  p-2 text-gray-400'
+  const [currentFilter, setCurrentFilter] = useState()
+  const openFilterCss = 'hover:cursor-pointer bg-white text-sm  px-3 py-1 rounded-[8px] text-black font-semibold'
+  const closeFilterCss = 'hover:cursor-pointer bg-[#272727] text-sm hover:bg-[#3a3838] px-3 py-1 font-semibold rounded-[8px] text-md'
+  const openTabCss = 'text-md  w-75 text-black bg-white font-semibold '
+  const closeTabCss = 'text-md  w-75  p-2 text-gray-600 hover:bg-gray-400 '
   const navigate = useNavigate()
+
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -37,6 +38,8 @@ const ChannelMain = () => {
     fetchVideos()
   },[])
 
+
+
   const openVideo = async (video) => {
     try {
       console.log(video);
@@ -47,6 +50,29 @@ const ChannelMain = () => {
       alert("These video is not Published")
     }
   }
+
+  const handleFilter = (filter) => {
+    console.log(filter);
+    setCurrentFilter(filter)
+    filterVideos(filter)
+  }
+
+
+  const filterVideos = (filter) => {
+    let sortedVideos = [...videos]
+    if (filter === "Latest") {
+      sortedVideos.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    }
+    if (filter === "Popular") {
+      sortedVideos.sort((a, b) => b.views - a.views)
+    }
+    if (filter === "Oldest") {
+      sortedVideos.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+    }
+    setVideos(sortedVideos)
+  }
+
+
 
   if (!user) return <p className='flex text-white justify-center items-center h-full text-lg'>User not found</p>
 
@@ -64,13 +90,13 @@ const ChannelMain = () => {
          alt="CoverImage" 
          className='w-full h-50 object-cover rounded'
          />
-         <div className='flex gap-3  py-2'>
+         <div className='flex gap-3  flex-col lg:flex-row  py-2'>
            <img 
            src={user.avatar}
            alt="profileImage" 
-           className='w-40 h-40 rounded-full object-cover'
+           className='w-40 h-40 m-auto lg:m-0 rounded-full object-cover relative bottom-7'
            />
-           <div>
+           <div className='flex flex-col  items-center lg:items-start'>
              <h1 className='text-3xl font-bold'>{user.fullName}</h1>
              <div className='flex gap-1'>
              <p className=' text-md '>@{user.userName} </p>
@@ -113,19 +139,25 @@ const ChannelMain = () => {
         {currentOpened == 1 && (
           <div>
             <div className='flex justify-end gap-4 m-4'>
-              <button className={currentFilter == "Latest" ? openFilterCss : closeFilterCss}>
+              <button className={currentFilter == "Latest" ? openFilterCss : closeFilterCss}
+              onClick={()=>(handleFilter("Latest"))}
+              >
                 Latest
               </button>
-              <button className={currentFilter == "Popular" ? openFilterCss : closeFilterCss}>
+              <button className={currentFilter == "Popular" ? openFilterCss : closeFilterCss}
+              onClick={()=>(handleFilter("Popular"))}
+              >
                 Popular
               </button>
-              <button className={currentFilter == "Oldest" ? openFilterCss : closeFilterCss}>
+              <button className={currentFilter == "Oldest" ? openFilterCss : closeFilterCss}
+              onClick={()=>(handleFilter("Oldest"))}
+              >
                 Oldest
               </button>
             </div>
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4'>
             {videos.map((video,index) => (
-              <div key={index} className='relative'>
+              <div key={index} className='relative border-1 hover:cursor-pointer p-1'>
                 <img
                 src={video.thumbnail}
                 alt="thumbnail"
@@ -155,9 +187,9 @@ const ChannelMain = () => {
           </div>
         )}
         {currentOpened == 2 && (
-          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4'>
+          <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4'>
             {playlist.map((playlist,index) => (
-              <div key={index} className=''>
+              <div key={index} className='border-1 rounded hover:cursor-pointer border-gray-400'>
                 <img
                 src={playlist.thumbnail}
                 alt="thumbnail"

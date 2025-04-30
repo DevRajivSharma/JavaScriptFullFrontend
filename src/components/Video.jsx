@@ -20,6 +20,7 @@ const Video = () => {
   console.log(currentVideo);
 
   useEffect(() => {
+    // Fetch video data if not already loaded
     const fetchVideoData = async () => {
       try {
         const response = await axios.get(`/api/v1/videos/getVideo/${id}`)
@@ -32,12 +33,21 @@ const Video = () => {
       }
     }
 
-    if (!currentVideo && id) {
-      fetchVideoData()
+    // Fetch related videos
+    const fetchRelatedVideos = async () => {
+      try {
+        const response = await axios.get(`/api/v1/videos/getRelatedVideos/${id}`)
+        if (response.data.success) {
+          setRelatedVideos(response.data.data)
+          console.log(relatedVideos)
+        }
+      }
+      catch (error) {
+        console.log(error)
+      }
     }
-  }, [id, currentVideo, dispatch])
 
-  useEffect(() => {
+    // Fetch comments
     const fetchComments = async () => {
       try {
         const response = await axios.get(`/api/v1/comments/getVideoComments/${currentVideo._id}`) 
@@ -58,11 +68,17 @@ const Video = () => {
       }
     }
 
+    // Logic for when to fetch what
+    if (!currentVideo && id) {
+      fetchVideoData()
+    }
+    if (currentVideo) {
+      fetchRelatedVideos()
+    }
     if (currentVideo?._id) {
       fetchComments()
     }
-  }, [currentVideo?._id])
-
+  }, [id, currentVideo, dispatch])
 
   const subscribToggle = async () => {
     try {
@@ -86,9 +102,9 @@ const Video = () => {
   }
 
   return (
-    <div className='text-white py-1'>
-      <section className='w-200 mx-2'>
-        <video controls className='w-200 aspect-video border-1'>
+    <div className='flex flex-col md:flex-row lg:flex-row  text-white py-1'>
+      <section className='lg:w-200 md:w-200 mx-2'>
+        <video controls className='lg:w-200 md:w-200 aspect-video border-1 border-[#3a3838] rounded p-2'>
           <source src={currentVideo.videoFile} type="video/mp4" />
         </video>
 
@@ -100,7 +116,7 @@ const Video = () => {
                 <img 
                   src={currentVideo.owner[0].avatar}
                   alt={currentVideo.owner[0].userName}
-                  className='w-10 h-10 rounded-full'
+                  className='w-10 h-10 rounded-full object-cover'
                 />
                 <div className='flex flex-col'>
                   <h3 className='text-lg font-semibold'>{currentVideo.owner[0].userName}</h3>
@@ -117,7 +133,7 @@ const Video = () => {
               </div>
               <p>
                 <button>
-                  <img src={like} alt="like" className='w-6 h-6 text-white' />
+                  <img src={like} alt="like" className='w-6 h-6 text-white ' />
                 </button>
               </p>
             </div>
@@ -149,7 +165,7 @@ const Video = () => {
                     <img 
                       src={comment.user[0].avatar} 
                       alt={comment.user[0].userName}
-                      className='w-10 h-10 rounded-full'
+                      className='w-10 h-10 rounded-full object-cover'
                     />
                     <div className='flex-1'>
                       <div className='flex items-center gap-2'>
@@ -172,7 +188,30 @@ const Video = () => {
         </div>
       </section>
       <section>
+            {relatedVideos.length === 0 ? "NO RELATED VIDEO" : (
+              <div className='flex flex-col gap-4'>
+                <h3 className='text-lg font-semibold mb-4'>Related Videos</h3>
+                {relatedVideos.map((video, index) => (
+                  <div key={index} className='flex gap-3 items-start'>
+                    <img
+                      src={video.thumbnail}
+                      alt={video.title}
+                      className='w-40 h-24 object-cover rounded'
+                    />
+                    <div className='flex-1'>
+                      <h3 className='text-md font-medium'>{video.title}</h3>
+                      <div className='flex items-center gap-2 text-sm text-gray-400'>
+                        <span>{video.views} views</span>
+                        <span>•</span>
+                        <span>{format(video.createdAt)}</span>
+                      </div>
+                    </div>
+                  </div>
 
+                ))}
+
+              </div>
+            )}
       </section>
     </div>
   )
