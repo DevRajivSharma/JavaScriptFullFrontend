@@ -12,7 +12,9 @@ import HomeMain from './components/Main/HomeMain'
 import ChannelMain from './components/Main/ChannelMain'
 import HistoryMain from './components/Main/HistoryMain'
 import PlaylistMain from './components/Main/PlaylistMain'
+import MyVideosMain from './components/Main/MyVideosMain.jsx'
 import Video from './components/video.jsx'
+import UpdateVideo from './components/Branch/UpdateVideo.jsx'
 
 const router = createBrowserRouter([
   {
@@ -42,6 +44,14 @@ const router = createBrowserRouter([
           {
             path:"/playlist",
             element: <PlaylistMain />
+          },
+          {
+            path:"/myVideos",
+            element: <MyVideosMain />,
+          },
+          {
+            path:"/updateVideo/:id",
+            element: <UpdateVideo />
           }
         ]
       },

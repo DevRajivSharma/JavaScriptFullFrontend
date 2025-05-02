@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { format } from 'timeago.js'
 import { useNavigate } from 'react-router'
-import { useDispatch } from 'react-redux'
+import { useSelector,useDispatch } from 'react-redux'
 import { setCurrentVideo } from '../../store/feature/videoSlice'
 import Spinner from '../Spinner.jsx'
 
@@ -12,7 +12,8 @@ const HomeMain = () => {
   const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const searchVideos = useSelector(state => state.video.searchVideos)
+  console.log(searchVideos);
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -29,7 +30,13 @@ const HomeMain = () => {
       }
     }
 
-    fetchVideos()
+    if (searchVideos.length > 0) {
+      setVideos(searchVideos)
+      setLoading(false)
+    }
+    else {
+      fetchVideos()
+    }
   }, [])
 
   const openVideo = async (video) => {
@@ -47,36 +54,7 @@ const HomeMain = () => {
     }
   }
 
-  const handleSearchFormSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.target)
-    const query = formData.get('query')
-    
-    if (!query) {
-      return // Don't search if query is empty
-    }
 
-    try {
-      const response = await axios.post('/api/v1/videos/searchVideos', {
-        query
-      })
-
-      if (response.data.success) {
-        if (response.data.data.videos){
-          setVideos(response.data.data.videos)
-        }
-        else {
-          setVideos([])
-        }
-      } else {
-        setVideos([]) // Clear videos if no results
-      }
-    }
-    catch (error) {
-      console.error('Error searching videos:', error.response?.data?.message || error.message)
-      setVideos([]) // Reset videos on error
-    }
-  }
 
   if (loading) {
     return (
@@ -92,19 +70,11 @@ const HomeMain = () => {
 
   return (
     <div>
-      <form onSubmit={handleSearchFormSubmit} className='flex justify-between gap-3 p-2 '>
-        <input type="text" name="query" placeholder='Search'
-        className='border-1  outline-none text-white p-1 w-full rounded  '>
-        </input>
-        <button type='submit' className='text-white px-3 hover:cursor-pointer hover:bg-white hover:text-black border rounded '>
-          Search
-        </button>
-      </form>
         
         {
-        <div className='grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 p-2 overflow-y-auto '>
+        <div className='grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2 overflow-y-auto '>
           {videos.map((video) => (
-            <div key={video._id} className=' overflow-hidden hover:scale-102  duration-200 '
+            <div key={video._id} className='border border-gray-500 p-1 rounded hover:cursor-pointer overflow-hidden hover:scale-102  duration-200 '
             onClick={()=>openVideo(video)}>
               <div className='relative'>
                 <img 
@@ -121,7 +91,7 @@ const HomeMain = () => {
                   <img 
                     src={video.owner[0].avatar} 
                     alt={video.owner[0].userName}
-                    className='w-8 h-8 rounded-full'
+                    className='w-10 h-10 rounded-full object-cover'
                   />
                   <div >
                     <h3 className='text-white  font-medium '>{shortDetails(video.title,50)}</h3>

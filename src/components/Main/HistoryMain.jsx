@@ -49,8 +49,6 @@ const HistoryMain = () => {
     window.location.reload()
   }
 
-  
-
   const shortDetails = (text,till) => {
     if (text.length > till) {
       return text.slice(0, till) + '...'
@@ -61,24 +59,29 @@ const HistoryMain = () => {
   }
 
   if (isloading) {
-    return <Spinner />
+    return (
+      <div className='flex justify-center items-center h-full'>
+        <Spinner />
+      </div>
+    )
   }
   if (history.length === 0) {
     return <p className='text-white flex justify-center items-center text-2xl h-full'>No video found</p>
   }
   return (
-    <div className='text-white m-4'>
-      <div className='flex justify-between items-center w-200'>
+    <div className='text-white m-4 '>
+      <div className='flex justify-between items-center max-w-200'>
       <h1 className='text-4xl  font-bold '>Watch History</h1>
       <p 
-        className='bg-gray-200 rounded font-bold hover:cursor-pointer text-black px-1'
+        className='bg-gray-200 rounded font-semibold 
+        hover:cursor-pointer text-black px-1 hover:bg-gray-300  text-md'
         onClick={()=>clearAll()}
         >
         Clear all
       </p>
       </div>
       {
-        <div className='flex flex-col mt-2  items-center '>
+        <div className='flex flex-col mt-2 max-w-200  '>
           {history.map((video) => (
             <div key={video._id} className='flex p-4 hover:bg-gray-700 duration-200 rounded-lg  overflow-hidden'
             >
