@@ -13,7 +13,7 @@ import ChannelMain from './components/Main/ChannelMain'
 import HistoryMain from './components/Main/HistoryMain'
 import PlaylistMain from './components/Main/PlaylistMain'
 import MyVideosMain from './components/Main/MyVideosMain.jsx'
-import Video from './components/video.jsx'
+import Video from './components/Video.jsx'
 import UpdateVideo from './components/Branch/UpdateVideo.jsx'
 
 const router = createBrowserRouter([
