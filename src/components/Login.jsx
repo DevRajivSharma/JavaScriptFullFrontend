@@ -23,8 +23,6 @@ const Login = () => {
       
       if (response.data.success) {
         console.log('Login successful:', response.data)
-        alert(response.data)
-
         dispatch(login(response.data.data.user))
         navigate('/')
       }

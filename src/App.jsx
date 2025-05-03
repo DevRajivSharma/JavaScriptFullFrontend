@@ -13,6 +13,7 @@ function App() {
   
   useEffect(() => {
     const fetchCurrentUser = async () => {
+      
       console.log(import.meta.env.VITE_BACKEND_URL)
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/getCurrentUser`, {

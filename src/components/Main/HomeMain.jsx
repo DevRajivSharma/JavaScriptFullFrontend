@@ -44,9 +44,11 @@ const HomeMain = () => {
 
   const openVideo = async (video) => {
     dispatch(setCurrentVideo(video))
-    await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/addViews/${video._id}`, {
-      withCredentials: true
-    })
+    await axios.patch(
+      `${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/addViews/${video._id}`,
+      {},
+      { withCredentials: true }
+    )
     navigate(`/video/${video._id}`)
   }
 

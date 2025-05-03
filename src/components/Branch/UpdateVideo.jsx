@@ -54,11 +54,12 @@ const UpdateVideo = () => {
         formData.append('video', videoRef.current.files[0]);
         try {
             setVideoLoading(true)
-            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateVideo/${id}`, {
-                withCredentials: true
-              }, formData, {
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateVideo/${id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            }, 
+            {
+                withCredentials: true
+              });
             if (response.data.success) {
                 alert('Video updated successfully');
                 window.location.reload();
@@ -144,7 +145,7 @@ const UpdateVideo = () => {
     const togglePublish = async (e) => {
         try {
             setPublishLoading(true)
-            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/togglePublish/${id}`, {
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/togglePublish/${id}`,{}, {
                 withCredentials: true
               });
             if (response.data.success) {
