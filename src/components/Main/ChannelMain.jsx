@@ -23,7 +23,9 @@ const ChannelMain = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await axios.get(`/api/v1/channels/getChannelProfile/${user._id}`)
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/channels/getChannelProfile/${user._id}`, {
+          withCredentials: true
+        })
         if (response.data.success) {
           setFetchUser(response.data.data)
           setVideos(response.data.data.videos)
@@ -43,7 +45,9 @@ const ChannelMain = () => {
   const openVideo = async (video) => {
     try {
       console.log(video);
-      await axios.patch(`/api/v1/videos/addViews/${video._id}`)
+      await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/addViews/${video._id}`, {
+        withCredentials: true
+      })
       navigate(`/video/${video._id}`)
     }
     catch (error) {

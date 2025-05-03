@@ -16,7 +16,9 @@ const HistoryMain = () => {
   useEffect(() => {
     const fetchHistory = async () => {
       try {
-        const response = await axios.get('/api/v1/users/getUserWatchHistory')
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/getUserWatchHistory`, {
+          withCredentials: true
+        })
         if (response.data.success) {
           setHistory(response.data.data)
           console.log(response.data.data);
@@ -34,18 +36,24 @@ const HistoryMain = () => {
 
   const openVideo = async (video) => {
     dispatch(setCurrentVideo(video))
-    await axios.patch(`/api/v1/videos/addViews/${video._id}`)
+    await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/addViews/${video._id}`, {
+      withCredentials: true
+    })
     navigate(`/video/${video._id}`)
   }
 
   const removeWatchHistory = async (videoId) => {
     console.log("clicked");
-    await axios.delete(`/api/v1/users/rmVideoWH/${videoId}`)
+    await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/rmVideoWH/${videoId}`, {
+      withCredentials: true
+    })
     window.location.reload()
   }
   const clearAll = async (videoId) => {
     console.log("clicked");
-    await axios.delete(`/api/v1/users/clearAllWH`)
+    await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/clearAllWH`, {
+      withCredentials: true
+    })
     window.location.reload()
   }
 

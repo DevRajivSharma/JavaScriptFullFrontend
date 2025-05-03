@@ -14,12 +14,17 @@ const Login = () => {
     const formData = new FormData(e.target)
     
     try {
-      const response = await axios.post('/api/v1/users/login', {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/login`, {
         username_email: formData.get('username_email'),
         password: formData.get('password')
+      }, {
+        withCredentials: true
       })
       
       if (response.data.success) {
+        console.log('Login successful:', response.data)
+        alert(response.data)
+
         dispatch(login(response.data.data.user))
         navigate('/')
       }

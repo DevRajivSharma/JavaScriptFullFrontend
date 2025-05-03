@@ -28,10 +28,12 @@ const Register = () => {
       formDataToSend.append("avatar", formData.avatar)
       formDataToSend.append("coverImage", formData.coverImage)
 
-      const response = await axios.post('/api/v1/users/register', formDataToSend, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/register`, formDataToSend, {
         headers: {
           "Content-Type": "multipart/form-data"
         }
+      }, {
+        withCredentials: true
       })
 
       if (response.data.success) {

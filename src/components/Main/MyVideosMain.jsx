@@ -20,7 +20,9 @@ const MyVideosMain = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await axios.get('/api/v1/videos/getMyVideos')
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/getMyVideos`, {
+          withCredentials: true
+        })
         if (response.data.success) {
           setVideos(response.data.data)
           setIsloading(false)
@@ -54,8 +56,10 @@ const MyVideosMain = () => {
     try {
       submitBtnRef.current.disabled = true
       submitBtnRef.current.innerText = 'Uploading...'
-      const response = await axios.post('/api/v1/videos/uploadVieo', formData, {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/uploadVieo`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' }
+      }, {
+        withCredentials: true
       })
       if (response.data.success) {
         alert('Video uploaded successfully!')

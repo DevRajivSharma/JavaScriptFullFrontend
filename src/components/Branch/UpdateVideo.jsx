@@ -22,7 +22,9 @@ const UpdateVideo = () => {
     useEffect(() => {
         const fetchVideoData = async () => {
             try {
-                const response = await axios.get(`/api/v1/videos/getVideoForUpdate/${id}`)
+                const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/getVideoForUpdate/${id}`, {
+                    withCredentials: true
+                  })
                 if (response.data.success) {
                     dispatch(setCurrentVideo(response.data.data))
                     console.log('This is currently fetcher data .......... \n', response.data.data);
@@ -52,7 +54,9 @@ const UpdateVideo = () => {
         formData.append('video', videoRef.current.files[0]);
         try {
             setVideoLoading(true)
-            const response = await axios.patch(`/api/v1/videos/updateVideo/${id}`, formData, {
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateVideo/${id}`, {
+                withCredentials: true
+              }, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             if (response.data.success) {
@@ -75,9 +79,11 @@ const UpdateVideo = () => {
         formData.append('thumbnail', thumbnailRef.current.files[0]);
         try {
             setThumbnailLoading(true)
-            const response = await axios.patch(`/api/v1/videos/updateThumbnail/${id}`, formData, {
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateThumbnail/${id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
-            });
+            }, {
+                withCredentials: true
+              });
             if (response.data.success) {
                 alert('Thumbnail updated successfully');
                 window.location.reload();
@@ -96,7 +102,9 @@ const UpdateVideo = () => {
     const updateTitle = async (e) => {
         try {
             setTitleLoading(true)
-            const response = await axios.patch(`/api/v1/videos/updateTitle/${id}`, { title: titleRef.current.value });
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateTitle/${id}`, { title: titleRef.current.value }, {
+                withCredentials: true
+              });
             if (response.data.success) {
                 alert('Title updated successfully');
                 window.location.reload();
@@ -115,7 +123,9 @@ const UpdateVideo = () => {
     const updateDescription = async (e) => {
         try {
             setDescriptionLoading(true)
-            const response = await axios.patch(`/api/v1/videos/updateDescription/${id}`, { description: descriptionRef.current.value });
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateDescription/${id}`, { description: descriptionRef.current.value }, {
+                withCredentials: true
+              });
             if (response.data.success) {
                 alert('Description updated successfully');
                 window.location.reload();
@@ -134,7 +144,9 @@ const UpdateVideo = () => {
     const togglePublish = async (e) => {
         try {
             setPublishLoading(true)
-            const response = await axios.patch(`/api/v1/videos/togglePublish/${id}`);
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/togglePublish/${id}`, {
+                withCredentials: true
+              });
             if (response.data.success) {
                 alert('Publish status updated successfully');
                 window.location.reload();

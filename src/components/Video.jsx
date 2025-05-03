@@ -23,7 +23,9 @@ const Video = () => {
     // Fetch video data if not already loaded
     const fetchVideoData = async () => {
       try {
-        const response = await axios.get(`/api/v1/videos/getVideo/${id}`)
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/getVideo/${id}`, {
+          withCredentials: true
+        })
         if (response.data.success) {
           dispatch(setCurrentVideo(response.data.data[0]))
           console.log('This is currently fetcher data .......... \n',response.data.data);
@@ -36,7 +38,9 @@ const Video = () => {
     // Fetch related videos
     const fetchRelatedVideos = async () => {
       try {
-        const response = await axios.get(`/api/v1/videos/getRelatedVideos/${id}`)
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/getRelatedVideos/${id}`, {
+          withCredentials: true
+        })
         if (response.data.success) {
           setRelatedVideos(response.data.data)
           console.log(relatedVideos)
@@ -50,7 +54,9 @@ const Video = () => {
     // Fetch comments
     const fetchComments = async () => {
       try {
-        const response = await axios.get(`/api/v1/comments/getVideoComments/${currentVideo._id}`) 
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/comments/getVideoComments/${currentVideo._id}`, {
+          withCredentials: true
+        }) 
         if (response.data.success) {
           const chatExist = (response.data.data).length
           if (chatExist) {
@@ -82,7 +88,9 @@ const Video = () => {
 
   const subscribToggle = async () => {
     try {
-      const response = await axios.post('/api/v1/subscriptions/toggle/', { channelId: currentVideo.owner[0]._id })
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/subscriptions/toggle/`, { channelId: currentVideo.owner[0]._id }, {
+        withCredentials: true
+      })
       if (response.data.success) {
         console.log('Subscribed successfully')
       }

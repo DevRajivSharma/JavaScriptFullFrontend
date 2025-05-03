@@ -28,9 +28,11 @@ const LoginNav = () => {
         }
 
         try {
-            const response = await axios.post('/api/v1/videos/searchVideos', {
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/searchVideos`, {
                 query
-            })
+            }, {
+                withCredentials: true
+              })
 
             if (response.data.success) {
                 if (response.data.data.videos) {

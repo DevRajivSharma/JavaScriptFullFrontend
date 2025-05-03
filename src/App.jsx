@@ -10,11 +10,13 @@ function App() {
 
   const [loader, setloader] = useState(true)
   const dispatch = useDispatch()
-
+  console.log(import.meta.env.VITE_BACKEND_URL)
   useEffect(() => {
     const fetchCurrentUser = async () => {
       try {
-        const response = await axios.get('/api/v1/users/getCurrentUser')
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/getCurrentUser`, {
+          withCredentials: true
+        })
         console.log(response)
         if (response.status === 200) {
           console.log('User is logged in')
