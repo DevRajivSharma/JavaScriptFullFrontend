@@ -22,7 +22,7 @@ const LoginNav = () => {
         e.preventDefault()
         const formData = new FormData(e.target)
         const query = formData.get('query')
-
+        console.log(query);
         if (!query) {
             return // Don't search if query is empty
         }
@@ -68,7 +68,8 @@ const LoginNav = () => {
 
                     <button type='submit'
                         className='text-black font-bold px-3 hover:cursor-pointer hover:text-white  hover:scale-105 duration-200  rounded bg-gradient-to-r from-purple-500 via-pink-500 to-red-500'>
-                        <FaSearch color='black' />
+                        <FaSearch color='black' className='lg:hidden md:hidden' />
+                        <span className='hidden lg:inline md:inline'>Search</span>
                     </button>
                 </form>
                 <div className='flex gap-1 items-center'>

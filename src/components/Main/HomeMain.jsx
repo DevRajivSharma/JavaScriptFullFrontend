@@ -13,7 +13,8 @@ const HomeMain = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const searchVideos = useSelector(state => state.video.searchVideos)
-  console.log(searchVideos);
+  console.log(searchVideos.length > 0);
+
   useEffect(() => {
     const fetchVideos = async () => {
       try {
@@ -29,15 +30,14 @@ const HomeMain = () => {
         setLoading(false)
       }
     }
-
-    if (searchVideos.length > 0) {
+    if (searchVideos.length) {
       setVideos(searchVideos)
       setLoading(false)
     }
     else {
       fetchVideos()
     }
-  }, [])
+  }, [searchVideos])
 
   const openVideo = async (video) => {
     dispatch(setCurrentVideo(video))
@@ -74,13 +74,13 @@ const HomeMain = () => {
         {
         <div className='grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2 overflow-y-auto '>
           {videos.map((video) => (
-            <div key={video._id} className='border border-gray-500 p-1 rounded hover:cursor-pointer overflow-hidden hover:scale-102  duration-200 '
+            <div key={video._id} className='border  border-gray-500  rounded-lg hover:cursor-pointer overflow-hidden hover:scale-102  duration-200 '
             onClick={()=>openVideo(video)}>
               <div className='relative'>
                 <img 
                   src={video.thumbnail} 
                   alt={video.title}
-                  className='w-full aspect-video object-cover rounded-lg'
+                  className='w-full aspect-video object-cover '
                 />
                 <span className='absolute bottom-2 right-2 bg-[#2222] bg-opacity-70 px-2 font-bold rounded text-xs text-white'>
                   {Math.floor(video.duration)}s

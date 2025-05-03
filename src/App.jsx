@@ -12,24 +12,26 @@ function App() {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    axios.get('/api/v1/users/getCurrentUser')
-    .then(response => {
-      console.log(response)
-      if (response.status === 200) {
-        console.log('User is logged in')
+    const fetchCurrentUser = async () => {
+      try {
+        const response = await axios.get('/api/v1/users/getCurrentUser')
+        console.log(response)
+        if (response.status === 200) {
+          console.log('User is logged in')
+          setloader(false)
+          dispatch(login(response.data.data))
+        }
+        else {
+          console.log('User is not logged in')
+          setloader(false)
+        }
+      } catch (error) {
+        console.log(error)
         setloader(false)
-        dispatch(login(response.data.data))
       }
-      else {
-        console.log('User is not logged in')
-        setloader(false)
-      }
-    },(error)=>{
-      console.log(error)
-      setloader(false)
-    })
-
-  })
+    }
+    fetchCurrentUser()
+  }, [])
 
   return (
     <>
