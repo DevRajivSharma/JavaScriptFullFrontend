@@ -10,9 +10,10 @@ function App() {
 
   const [loader, setloader] = useState(true)
   const dispatch = useDispatch()
-  console.log(import.meta.env.VITE_BACKEND_URL)
+  
   useEffect(() => {
     const fetchCurrentUser = async () => {
+      console.log(import.meta.env.VITE_BACKEND_URL)
       try {
         const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/getCurrentUser`, {
           withCredentials: true

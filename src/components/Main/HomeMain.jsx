@@ -18,9 +18,10 @@ const HomeMain = () => {
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/getAllVideos`, {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/getAllVideos`, 
+          {
           withCredentials: true
-        })
+          })
         if (response.data.success) {
           setVideos(response.data.data)
           console.log(response.data.data);
