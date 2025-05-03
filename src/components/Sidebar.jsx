@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router'
 import { logout } from '../store/feature/authSlice'
 import { useDispatch } from 'react-redux'
 import { FaHome, FaUser, FaVideo, FaHistory, FaListUl, FaSignOutAlt } from 'react-icons/fa'
-
+import { setSearchVideos } from '../store/feature/videoSlice'
 const sidebar = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -16,7 +16,7 @@ const sidebar = () => {
       <button
         className=' m-1 text-white hover:bg-amber-100 hover:text-black hover:font-bold flex justify-center lg:border md:border  items-center gap-2'
         onClick={() => {
-          window.location.reload();
+          dispatch(setSearchVideos([]))
           navigate('/')
         }}>
         <FaHome className={iconClass} />
