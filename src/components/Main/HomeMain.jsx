@@ -22,7 +22,7 @@ const HomeMain = () => {
           {
           withCredentials: true
           })
-        if (response.data.success) {
+        if (response.data.success) {  
           setVideos(response.data.data)
           console.log(response.data.data);
           
@@ -76,20 +76,21 @@ const HomeMain = () => {
   }
 
   return (
-    <div>
-        
-        {
+    <div className='lg:p-4 md:p-4'> 
+        <div className=''>
+          <h2 className='text-white  lg:text-2xl md:text-2xl font-bold p-2'>Discover videos</h2>
+        </div>     
         <div className='grid  grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-2 overflow-y-auto '>
           {videos.map((video) => (
-            <div key={video._id} className='border  border-gray-500  rounded-lg hover:cursor-pointer overflow-hidden hover:scale-102  duration-200 '
+            <div key={video._id} className=' rounded-lg hover:cursor-pointer overflow-hidden  duration-200 '
             onClick={()=>openVideo(video)}>
               <div className='relative'>
                 <img 
                   src={video.thumbnail} 
                   alt={video.title}
-                  className='w-full aspect-video object-cover '
+                  className='w-full aspect-video rounded-lg object-cover '
                 />
-                <span className='absolute bottom-2 right-2 bg-[#2222] bg-opacity-70 px-2 font-bold rounded text-xs text-white'>
+                <span className='absolute bottom-2 right-2 bg-[#4e4a46] bg-opacity-0 px-2 font-semibold rounded text-xs text-white'>
                   {Math.floor(video.duration)}s
                 </span>
               </div>
@@ -114,7 +115,6 @@ const HomeMain = () => {
             </div>
           ))}
         </div>
-        }
     </div>
   )
 }

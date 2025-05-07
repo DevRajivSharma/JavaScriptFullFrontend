@@ -4,7 +4,9 @@ import { useParams } from 'react-router'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setCurrentVideo } from '../../store/feature/videoSlice'
+import { FaSpinner } from 'react-icons/fa'
 import Spinner from '../Spinner'
+import { useNavigate } from 'react-router'
 
 const UpdateVideo = () => {
     const { id } = useParams()
@@ -19,6 +21,10 @@ const UpdateVideo = () => {
     const [titleLoading, setTitleLoading] = useState(false)
     const [descriptionLoading, setDescriptionLoading] = useState(false)
     const [publishLoading, setPublishLoading] = useState(false)
+    const [deleteLoading, setDeleteLoading] = useState(false)
+    const [videoPreview, setVideoPreview] = useState(null)
+    const [thumbnailPreview, setThumbnailPreview] = useState(null)
+    const navigate = useNavigate()
     useEffect(() => {
         const fetchVideoData = async () => {
             try {
@@ -38,6 +44,7 @@ const UpdateVideo = () => {
             fetchVideoData()
         }
     }, [id, currentVideo, dispatch])
+
     const whiteSpinner = (
         <div role="status">
             <svg aria-hidden="true" class="inline w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-gray-600 dark:fill-gray-300" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -48,18 +55,55 @@ const UpdateVideo = () => {
         </div>
     )
 
+    const handleVideoChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            setVideoPreview(URL.createObjectURL(file))
+        }
+    }
+
+    const handleDeleteVideo = async (e) => {
+        try {
+           setDeleteLoading(true)
+            const response = await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/deleteVideo/${id}`, {
+                withCredentials: true
+            })
+            if (response.data.success) {
+                setDeleteLoading(false)
+                alert('Video deleted successfully');
+                navigate('/myVideos')
+            }
+            else {
+                setDeleteLoading(false)
+                alert('Video deletion failed');
+            }
+        }
+        catch (error) {
+            alert('Video deletion failed');
+            console.log(error)
+        }
+    }
+
+    const handleThumbnailChange = (e) => {
+        const file = e.target.files[0]
+        if (file) {
+            setThumbnailPreview(URL.createObjectURL(file))
+        }
+    }
+
     // Update video file
     const updateVideoFile = async (e) => {
+        if (videoRef.current.files[0] === undefined) {
+            alert('Please select a video file');
+        }
         const formData = new FormData();
         formData.append('video', videoRef.current.files[0]);
         try {
             setVideoLoading(true)
             const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateVideo/${id}`, formData, {
+                withCredentials: true,
                 headers: { 'Content-Type': 'multipart/form-data' }
-            }, 
-            {
-                withCredentials: true
-              });
+            },);
             if (response.data.success) {
                 alert('Video updated successfully');
                 window.location.reload();
@@ -76,15 +120,16 @@ const UpdateVideo = () => {
 
     // Update thumbnail
     const updateThumbnail = async (e) => {
+        if (thumbnailRef.current.files[0] === undefined) {
+            alert('Please select a thumbnail file');
+        }
         const formData = new FormData();
         formData.append('thumbnail', thumbnailRef.current.files[0]);
         try {
             setThumbnailLoading(true)
-            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateThumbnail/${id}`, formData, {
+            const response = await axios.patch(`${import.meta.env.VITE_BACKEND_URL}/api/v1/videos/updateThumbnail/${id}`, formData, {   withCredentials: true,
                 headers: { 'Content-Type': 'multipart/form-data' }
-            }, {
-                withCredentials: true
-              });
+            }, );
             if (response.data.success) {
                 alert('Thumbnail updated successfully');
                 window.location.reload();
@@ -177,6 +222,14 @@ const UpdateVideo = () => {
                 <label className='text-white mb-1 font-semibold'>
                     Video File :
                 </label>
+                <div className='flex flex-col'>
+                    {videoPreview && (
+                        <video
+                            src={videoPreview}
+                            controls
+                            className="w-100 rounded-lg "
+                        />
+                    )}
                 <div className="flex items-center justify-start w-full">
                     <label
                         className="flex flex-col items-center justify-center w-full  border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-900 ">
@@ -189,10 +242,12 @@ const UpdateVideo = () => {
                         <input type="file"
                             name="video"
                             accept="video/*"
+                            onChange={handleVideoChange}
                             ref={videoRef}
                             required
                             className="hidden" />
                     </label>
+                </div>
                 </div>
                 <button
                     onClick={updateVideoFile}
@@ -205,7 +260,15 @@ const UpdateVideo = () => {
                 <label className='text-white mb-1 font-semibold'>
                     Video Thumbnail :
                 </label>
-                <div className="flex items-center justify-start ">
+                <div className='flex flex-col '>
+                    {thumbnailPreview && (
+                        <img
+                            src={thumbnailPreview}
+                            alt="Thumbnail"
+                            className="w-100 rounded-lg mb-1 object-cover"
+                        />
+                    )}
+                <div className="flex items-center justify-start w-full">
                     <label
                         className="flex flex-col items-center justify-center w-full  border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-900 ">
                         <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -218,11 +281,13 @@ const UpdateVideo = () => {
                             type="file"
                             name="thumbnail"
                             accept="image/*"
+                            onChange={handleThumbnailChange}
                             ref={thumbnailRef}
                             required
                             className="hidden"
                         />
                     </label>
+                </div>
                 </div>
                 <button
                     onClick={updateThumbnail}
@@ -271,8 +336,7 @@ const UpdateVideo = () => {
                 </button>
 
             </div>
-
-            <div className='flex'>
+            <div className='flex mb-2'>
                 {currentVideo.isPublished ? (
                     <button
                         onClick={(e) => togglePublish(e)}
@@ -289,6 +353,11 @@ const UpdateVideo = () => {
                     </button>
                 )}
             </div>
+            <button
+            onClick={handleDeleteVideo}
+            className='bg-red-400 w-full border-1 border-white p-2 hover:cursor-pointer rounded font-bold'>
+                {deleteLoading? whiteSpinner : "Delete Video"}
+            </button>
         </div>
     )
 }

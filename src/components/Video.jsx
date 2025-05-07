@@ -4,11 +4,11 @@ import { format } from 'timeago.js'
 import axios from 'axios'
 import Spinner from './Spinner.jsx'
 import like from '../assets/like.png'
-import Liked from '../assets/liked.png'
+import liked from '../assets/liked.png'
 import { useParams } from 'react-router'
 import { useDispatch } from 'react-redux'
 import { setCurrentVideo } from '../store/feature/videoSlice'
-
+import { FaSpinner } from 'react-icons/fa'
 
 const Video = () => {
   const { id } = useParams()
@@ -17,8 +17,10 @@ const Video = () => {
   const [videoChat,setVideoChat] = useState([])
   const [relatedVideos,setRelatedVideos] = useState([])
   const [videoLoading,setVideoLoading] = useState(true)
-  console.log(currentVideo);
-
+  const [subscribedata,setSubscribedata] = useState()
+  const [subscribeLoading,setSubscribeLoading] = useState(false)
+  const [isLiked, setIsLiked] = useState(null)
+  const [totalLikes, setTotalLikes] = useState()
   useEffect(() => {
     // Fetch video data if not already loaded
     const fetchVideoData = async () => {
@@ -80,25 +82,48 @@ const Video = () => {
     }
     if (currentVideo) {
       fetchRelatedVideos()
+      setSubscribedata(currentVideo.owner[0].isSubscribed)
+      setIsLiked(currentVideo.isLiked)
+      setTotalLikes(currentVideo.totalLikes)
     }
     if (currentVideo?._id) {
       fetchComments()
     }
   }, [id, currentVideo, dispatch])
 
-  const subscribToggle = async () => {
+  const subscribeToggle = async () => {
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/subscriptions/toggle/`, { channelId: currentVideo.owner[0]._id }, {
+      
+      setSubscribeLoading(true)
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/subscriptions/toggle/${currentVideo.owner[0]._id }`, {}, {
         withCredentials: true
       })
       if (response.data.success) {
+        setSubscribedata(!subscribedata)
+        setSubscribeLoading(false)
         console.log('Subscribed successfully')
       }
     } catch (error) {
-      console.log(error)
+      setSubscribeLoading(false)
+      console.log('Error is ',error)
     }
   }
 
+  const toggleVideoLike = async () => {
+    setIsLiked(!isLiked)
+    setTotalLikes(isLiked? totalLikes - 1 : totalLikes + 1)
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/likes/togleVideoLike/${id}`, {}, {
+        withCredentials: true
+      })
+      if (response.data.success) {
+        console.log('Video liked successfully : ', response.data)
+      } 
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
 
   if (!currentVideo || currentVideo.length === 0) {
@@ -120,7 +145,7 @@ const Video = () => {
           <div>
             <h1 className='text-xl font-bold'>{currentVideo.title}</h1>
             <div className='flex justify-between'>
-              <div className='flex gap-5 items-center'>
+              <div className='flex gap-3 items-center'>
                 <img 
                   src={currentVideo.owner[0].avatar}
                   alt={currentVideo.owner[0].userName}
@@ -130,20 +155,30 @@ const Video = () => {
                   <h3 className='text-lg font-semibold'>{currentVideo.owner[0].userName}</h3>
                   <h3 className='text-sm font-light'>{currentVideo.owner[0].subscribersCount} subscribers</h3>
                 </div>
-                {currentVideo.owner[0].isSubscribed ?
-                <button className='border-1 bg-[#222] text-white  border-white p-1 px-3  rounded-xl hover:cursor-pointer'>
-                  Subscribed
+                {subscribedata ?
+                <button
+                onClick={subscribeToggle}
+                className='  text-[#dcd4d4]  bg-[#535353] border-white p-1 px-3 font-semibold  
+                rounded-full hover:cursor-pointer w-[104px] h-[32px] outline-none'>
+                  {subscribeLoading? <FaSpinner className='animate-spin m-auto '/> : 'Subscribed'}
                 </button> :(
-                  <button className='border-1 bg-white text-black  border-white p-1 px-3  rounded-xl hover:cursor-pointer'>
-                  Subscribe
+                  <button 
+                  onClick={subscribeToggle}
+                  className='border-1 bg-white text-black  border-white p-1 px-3 hover:bg-[#f4f1f1] font-semibold  rounded-full hover:cursor-pointer w-[95px] h-[33px] outline-none'>
+                    {subscribeLoading? <FaSpinner className='animate-spin m-auto '/> : 'Subscribe'}
+                  
                 </button>
                 )}
               </div>
-              <p>
-                <button>
-                  <img src={like} alt="like" className='w-6 h-6 text-white ' />
+              <div className='flex gap-2 mr-5 items-center'>
+                <button
+                onClick={toggleVideoLike}
+                className=' hover:cursor-pointer'
+                >
+                  {isLiked?<img src={liked} alt="like" className='w-6 h-6 text-white ' />:<img src={like} alt="like" className='w-6 h-6 text-white ' />}
                 </button>
-              </p>
+                {totalLikes}
+              </div>
             </div>
           </div>
 

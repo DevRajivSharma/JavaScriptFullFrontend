@@ -39,7 +39,7 @@ function App() {
 
   return (
     <>
-      <div className={'bg-[#0f0f0f]  w-screen h-screen flex flex-col'}>
+      <div className={'bg-black  w-screen h-screen flex flex-col'}>
         {loader && (
       <div className='flex justify-center items-center h-full'>
         <Spinner />
