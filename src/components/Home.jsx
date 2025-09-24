@@ -19,7 +19,7 @@ const home = () => {
     )
   }
   return (
-    <div className='flex h-full'>
+    <div className=' h-full'>
       <LandingPage/>
     </div>
   )

@@ -109,14 +109,16 @@ const LoginNav = () => {
     if (profileImg) {
         return (
             <div className='flex p-2 px-2 justify-between  items-center max-w-screen border-b-1  border-[#2e2e2e]' >
-                {/* <img src={logo} alt="Logo" width={50} /> */}
+                <div className=' items-center lg:pl-2 gap-5 hidden lg:flex md:flex'>
+                <img src={logo} alt="Logo" width={50} />
                 <h1
                     onClick={() => {
                         navigate('/')
                     }}
-                    className='text-white hover:cursor-pointer text-xl hidden lg:block md:block font-bold'
+                    className='text-white hover:cursor-pointer text-xl  font-bold'
                 >VideoTube
                 </h1>
+                </div>
                 <form onSubmit={handleSearchFormSubmit} className='flex items-center justify-between gap-3 p-1 '>
                     <input type="text" name="query" placeholder='Search videos...'
                         className='text-white border-1 rounded border-[#555555] 

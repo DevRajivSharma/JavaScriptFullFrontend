@@ -79,7 +79,7 @@ const ChannelMain = () => {
 if (!user) return <p className='flex text-white justify-center items-center h-full text-lg'>User not found</p>
 
   if (isloading) return (
-    <div className='flex h-full justify-center items-center'>
+    <div className='flex h-screen justify-center items-center'>
       <Spinner />
     </div>
   )

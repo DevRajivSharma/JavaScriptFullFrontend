@@ -19,8 +19,8 @@ const sidebar = () => {
     <>
       {/* Home */}
       <button
-        className={`mx-2 my-[2px] text-white hover:bg-[#262626] font-semibold flex
-         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 0 ? 'bg-[#262626]' : ''}`}
+        className={`mx-2 my-[2px]  hover:bg-[#262626] font-semibold flex
+         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 0 ? 'bg-[#262626] text-[#e25303]' : 'text-white'}`}
         onClick={() => {
           setCurrentOpenTab(0);
           dispatch(setSearchVideos([]))
@@ -35,8 +35,8 @@ const sidebar = () => {
 
       {/* Subscribtions */}
       <button
-        className={`mx-2 my-[2px] text-white hover:bg-[#262626] font-semibold flex
-         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 6 ? 'bg-[#262626]' : ''}`}
+        className={`mx-2 my-[2px]  hover:bg-[#262626] font-semibold flex
+         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 6 ? 'bg-[#262626] text-[#e25303]' : 'text-white'}`}
         onClick={() => {
           setCurrentOpenTab(6);
           dispatch(setSearchVideos([]))
@@ -68,8 +68,8 @@ const sidebar = () => {
 
       {/* My channel */}
       <button
-        className={`mx-2 my-[2px] text-white hover:bg-[#262626] font-semibold md:flex lg:flex
-         p-2 rounded-md  items-center hover:cursor-pointer gap-2 hidden  ${currentOpenTab === 1 ? 'bg-[#262626]' : ''}`}
+        className={`mx-2 my-[2px]  hover:bg-[#262626] font-semibold md:flex lg:flex
+         p-2 rounded-md  items-center hover:cursor-pointer gap-2 hidden  ${currentOpenTab === 1 ? 'bg-[#262626] text-[#e25303]' : 'text-white'}`}
         onClick={() => {
           setCurrentOpenTab(1);
           navigate('/channel')
@@ -79,8 +79,8 @@ const sidebar = () => {
       </button >
       {/* My videos */}
       <button
-        className={`mx-2 my-[2px] text-white hover:bg-[#262626] font-semibold flex
-         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 2 ? 'bg-[#262626]' : ''}`}
+        className={`mx-2 my-[2px]  hover:bg-[#262626] font-semibold flex
+         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 2 ? 'bg-[#262626] text-[#e25303]' : 'text-white'}`}
         onClick={() => {
           setCurrentOpenTab(2);
           navigate('/myVideos')
@@ -106,8 +106,8 @@ const sidebar = () => {
       </button>
       {/* History */}
       <button
-        className={`mx-2 my-[2px] text-white hover:bg-[#262626] font-semibold flex
-         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 3 ? 'bg-[#262626]' : ''}`}
+        className={`mx-2 my-[2px]  hover:bg-[#262626] font-semibold flex
+         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 3 ? 'bg-[#262626] text-[#e25303]' : 'text-white'}`}
         onClick={() => {
           setCurrentOpenTab(3);
           navigate('/history')
@@ -132,8 +132,8 @@ const sidebar = () => {
         <span className={textClass}>History</span>
       </button>
       <button
-        className={`mx-2 my-[2px] text-white hover:bg-[#262626] font-semibold flex
-         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 4 ? 'bg-[#262626]' : ''}`}
+        className={`mx-2 my-[2px]  hover:bg-[#262626] font-semibold flex
+         p-2 rounded-md  items-center hover:cursor-pointer gap-2 ${currentOpenTab === 4 ? 'bg-[#262626] text-[#e25303]' : 'text-white'}`}
         onClick={() => {
           setCurrentOpenTab(4);
           navigate('/playlist')

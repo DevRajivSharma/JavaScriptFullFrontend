@@ -73,7 +73,7 @@ const MyVideosMain = () => {
 
   if (isloading) {
     return (
-      <div className='flex justify-center items-center h-full'>
+      <div className='flex h-screen justify-center items-center'>
         <Spinner />
       </div>
     )
