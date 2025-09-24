@@ -230,7 +230,7 @@ const Video = () => {
             )}
         </div>
       </section>
-      <section>
+      <section className='flex flex-col gap-4 p-2'>
             {relatedVideos.length === 0 ? "NO RELATED VIDEO" : (
               <div className='flex flex-col gap-4'>
                 <h3 className='text-lg font-semibold mb-4'>Related Videos</h3>

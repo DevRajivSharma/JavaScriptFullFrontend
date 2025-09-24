@@ -94,10 +94,10 @@ const Register = () => {
   }
 
   return (
-    <div className='flex items-center justify-center h-full'>
+    <div className='flex my-auto items-center px-5 justify-center h-full'>
       {step === 'register' && (
         <form onSubmit={handleSendOtp}
-          className='flex flex-col border-1 border-white rounded-lg p-2 w-100'>
+          className='flex flex-col  border-[#2e2e2e] rounded-lg p-2 w-100'>
           <h3 className='flex items-center gap-2 mb-6'>
             <img src={logo} alt="YoutubeClone" className='w-8 h-8' />
             <span className='text-2xl text-white'>YoutubeClone</span>
@@ -108,7 +108,7 @@ const Register = () => {
             name='username'
             value={formData.username}
             onChange={handleInputChange}
-            className='border-1 outline-none text-white p-3 mb-4 rounded'
+            className='border-1 border-[#555555]  text-white p-3 mb-4 rounded '
             required
           />
           <input
@@ -117,7 +117,7 @@ const Register = () => {
             name='fullname'
             value={formData.fullname}
             onChange={handleInputChange}
-            className='border-1 outline-none text-white p-3 mb-4 rounded'
+            className='border-1 border-[#555555]  text-white p-3 mb-4 rounded '
             required
           />
           <input
@@ -126,16 +126,17 @@ const Register = () => {
             name='email'
             value={formData.email}
             onChange={handleInputChange}
-            className='border-1 outline-none text-white p-3 mb-4 rounded'
+            className='border-1 border-[#555555]  text-white p-3 mb-4 rounded '
             required
           />
+          <label htmlFor="avatar" className='text-white mb-2'>Avatar:</label>
           <input
             type="file"
             accept='image/*'
             id='avatar'
             name='avatar'
             onChange={handleFileChange}
-            className='border-1 text-white p-3 mb-4 rounded'
+            className='border-1 border-[#555555]  text-white p-3 mb-4 rounded '
             required
           />
           <label htmlFor="coverImage" className='text-white mb-2'>Cover Image:</label>
@@ -145,7 +146,7 @@ const Register = () => {
             id='coverImage'
             name='coverImage'
             onChange={handleFileChange}
-            className='border-1 text-white p-3 mb-4 rounded'
+            className='border-1 border-[#555555]  text-white p-3 mb-4 rounded '
             required
           />
           <input
@@ -154,7 +155,7 @@ const Register = () => {
             name='password'
             value={formData.password}
             onChange={handleInputChange}
-            className='border-1 text-white p-3 mb-4 rounded'
+            className='border-1 border-[#555555]  text-white p-3 mb-4 rounded '
             required
           />
           <button className='bg-violet-600 text-white py-2 px-6 rounded-md hover:bg-violet-700 transition-all duration-300 self-end'
@@ -180,7 +181,7 @@ const Register = () => {
       )}
       {step === 'verify' && (
         <form onSubmit={handleVerifyAndRegister}
-          className='flex flex-col border-1 border-white rounded-lg p-2 w-100'>
+          className='flex flex-col  rounded-lg p-2 w-100'>
           <h3 className='flex items-center gap-2 mb-6'>
             <img src={logo} alt="YoutubeClone" className='w-8 h-8' />
             <span className='text-2xl text-white'>YoutubeClone</span>
@@ -191,7 +192,7 @@ const Register = () => {
             placeholder="Enter OTP"
             value={otp}
             onChange={e => setOtp(e.target.value)}
-            className="border-1 outline-none text-white p-3 mb-4 rounded"
+            className="border-1 border-[#555555]  text-white p-3 mb-4 rounded "
             required
           />
           <button

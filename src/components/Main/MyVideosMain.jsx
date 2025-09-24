@@ -226,7 +226,7 @@ const MyVideosMain = () => {
               className="bg-violet-600 text-white py-2 px-6 rounded-md hover:bg-violet-700 transition-all duration-300 hover:cursor-pointer"
               ref={submitBtnRef}
             >
-              {loading ? <FaSpinner className="animate-spin" /> : 'Upload Video'}
+              {loading ? <FaSpinner className="animate-spin m-auto" /> : 'Upload Video'}
             </button>
           </form>
         )

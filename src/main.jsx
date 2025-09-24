@@ -15,7 +15,7 @@ import PlaylistMain from './components/Main/PlaylistMain'
 import MyVideosMain from './components/Main/MyVideosMain.jsx'
 import Video from './components/Video.jsx'
 import UpdateVideo from './components/Branch/UpdateVideo.jsx'
-
+import SubscribtionMain from './components/Main/SubscribtionMain.jsx'
 const router = createBrowserRouter([
   {
     path: "/",
@@ -52,6 +52,10 @@ const router = createBrowserRouter([
           {
             path:"/updateVideo/:id",
             element: <UpdateVideo />
+          },
+          {
+            path:"/subscribtion",
+            element: <SubscribtionMain />
           }
         ]
       },

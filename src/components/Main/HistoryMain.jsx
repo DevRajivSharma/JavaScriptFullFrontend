@@ -89,9 +89,9 @@ const HistoryMain = () => {
       </p>
       </div>
       {
-        <div className='flex flex-col mt-2 max-w-200  '>
+        <div className='flex flex-col mt-2 max-w-200 hover:cursor-pointer '>
           {history.map((video) => (
-            <div key={video._id} className='flex p-4 hover:bg-gray-700 duration-200 rounded-lg  overflow-hidden'
+            <div key={video._id} className='flex p-4  rounded-lg  overflow-hidden'
             >
               <div className='relative'>
                 <img 

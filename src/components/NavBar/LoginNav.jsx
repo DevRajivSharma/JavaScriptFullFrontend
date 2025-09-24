@@ -108,7 +108,7 @@ const LoginNav = () => {
 
     if (profileImg) {
         return (
-            <div className='flex p-2 px-2 justify-between  items-center w-screen border-b-1  border-[#2e2e2e]' >
+            <div className='flex p-2 px-2 justify-between  items-center max-w-screen border-b-1  border-[#2e2e2e]' >
                 {/* <img src={logo} alt="Logo" width={50} /> */}
                 <h1
                     onClick={() => {

@@ -40,9 +40,9 @@ const Login = () => {
   }
 
   return (
-    <div className='flex items-center justify-center h-full '>
+    <div className='flex my-auto items-center p-5 justify-center  '>
       <form onSubmit={handleSubmit}
-        className='flex flex-col border-1 border-[#2e2e2e] rounded-lg p-8  w-100 '
+        className='flex flex-col  border-[#2e2e2e] rounded-lg p-8  w-100 '
       >
         <h3 className='flex items-center gap-2 mb-6'>
           {/* <img src={logo} alt="YoutubeClone" className='w-8 h-8' /> */}

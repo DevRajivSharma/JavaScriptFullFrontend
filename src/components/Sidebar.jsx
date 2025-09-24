@@ -26,7 +26,7 @@ const sidebar = () => {
           dispatch(setSearchVideos([]))
           navigate('/')
         }}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 25 25" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-house h-4 w-4">
+        <svg xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 25 25" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-house lg:h-4 lg:w-4">
           <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
           <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
         </svg>
@@ -40,7 +40,7 @@ const sidebar = () => {
         onClick={() => {
           setCurrentOpenTab(6);
           dispatch(setSearchVideos([]))
-          navigate('/')
+          navigate('/subscribtion')
         }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +51,7 @@ const sidebar = () => {
           focusable="false"
           aria-hidden="true"
           style={{ pointerEvents: 'none', display: 'inherit', }}
-          className='h-4 w-4'
+          className='lg:h-4 lg:w-4'
         >
           <path
             clipRule="evenodd"
@@ -74,7 +74,7 @@ const sidebar = () => {
           setCurrentOpenTab(1);
           navigate('/channel')
         }}>
-        <FaTv className='h-4 w-4' />
+        <FaTv className='lg:h-4 lg:w-4' />
         <span className={textClass}>My Channel</span>
       </button >
       {/* My videos */}
@@ -94,7 +94,7 @@ const sidebar = () => {
           focusable="false"
           aria-hidden="true"
           style={{ pointerEvents: 'none', display: 'inherit', }}
-          className='h-4 w-4'
+          className='lg:h-4 lg:w-4'
         >
           <path
             clipRule="evenodd"
@@ -121,7 +121,7 @@ const sidebar = () => {
           focusable="false"
           aria-hidden="true"
           style={{ pointerEvents: 'none', display: 'inherit', }}
-          className='h-4 w-4'
+          className='lg:h-4 lg:w-4'
         >
           <path
             clipRule="evenodd"
@@ -147,7 +147,7 @@ const sidebar = () => {
           focusable="false"
           aria-hidden="true"
           style={{ pointerEvents: 'none', display: 'inherit', }}
-          className='h-4 w-4'
+          className='lg:h-4 lg:w-4'
         >
           <path
             clipRule="evenodd"
