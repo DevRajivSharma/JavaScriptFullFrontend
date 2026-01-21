@@ -4,9 +4,10 @@ import demoVideo from "../assets/demo.mp4";
 
 const LandingPage = () => {
   return (
-    <div className="w-full overflow-x-hidden bg-[#0f0f0f] text-gray-200">
+    <div className="min-h-screen bg-[#0f0f0f] text-gray-200 overflow-x-hidden"
+         style={{ width: '100vw', maxWidth: '100%' }}>
       {/* Hero Section */}
-      <section className="flex flex-col md:flex-row items-center justify-between px-8 py-20 max-w-7xl mx-auto">
+      <section className="flex flex-col md:flex-row items-center justify-between px-4 md:px-8 py-20 max-w-7xl mx-auto w-full">
         <div className="md:w-1/2 mb-10 md:mb-0">
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">
             Welcome to <span className="text-red-500">VideoTube</span>
@@ -39,8 +40,8 @@ const LandingPage = () => {
       </section>
 
       {/* Features Section */}
-      <section className="bg-[#181818] py-16">
-        <div className="max-w-7xl mx-auto px-8">
+      <section className="bg-[#181818] py-16 w-full">
+        <div className="max-w-7xl mx-auto px-4 md:px-8 w-full">
           <h2 className="text-3xl font-bold text-center mb-12 text-white">
             Why Choose VideoTube?
           </h2>
@@ -62,7 +63,7 @@ const LandingPage = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 px-8 text-center bg-[#0f0f0f]">
+      <section className="py-16 px-4 md:px-8 text-center bg-[#0f0f0f] w-full">
         <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
           Start Your Video Journey Today!
         </h2>
@@ -87,8 +88,8 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-[#181818] py-8 px-8 border-t border-[#2a2a2a]">
-        <div className="max-w-7xl mx-auto text-center text-gray-500 text-sm">
+      <footer className="bg-[#181818] py-8 px-4 md:px-8 border-t border-[#2a2a2a] w-full">
+        <div className="max-w-7xl mx-auto text-center text-gray-500 text-sm w-full">
           &copy; {new Date().getFullYear()} VideoTube. All rights reserved.
         </div>
       </footer>
